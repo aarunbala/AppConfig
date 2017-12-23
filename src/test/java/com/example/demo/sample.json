@@ -1,0 +1,157 @@
+[
+  {
+    "appName": "App",
+    "appVersion": "1.2",
+    "platformName": "ios",
+    "platformVersion": "11.2",
+    "configs": [
+      {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://localhost:8082/swagger-ui.html#!/app-version-controller/addConfigsUsingPOST"
+      },
+       {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://google.com"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "contact",
+        "value": "131234"
+      },
+      {
+        "description": "Support Email",
+        "key": "email",
+        "value": "abc@abc.com"
+      }
+    ]
+  },
+  {
+    "appName": "App",
+    "appVersion": "1.2",
+    "platformName": "android",
+    "platformVersion": "6",
+    "configs": [
+      {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://google.com"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "contact",
+        "value": "131234"
+      },
+      {
+        "description": "Support Email",
+        "key": "email",
+        "value": "abc@abc.com"
+      }
+    ]
+  },
+   {
+    "appName": "Buys",
+    "appVersion": "1.2",
+    "platformName": "android",
+    "platformVersion": "6",
+    "configs": [
+      {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://google.com"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "contact",
+        "value": "131234"
+      },
+      {
+        "description": "Support Email",
+        "key": "email",
+        "value": "abc@abc.com"
+      }
+    ]
+  },
+  {
+    "appName": "App",
+    "appVersion": "global",
+    "platformName": "global",
+    "platformVersion": "global",
+    "configs": [
+      {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://localhost:8082/swagger-ui.html#!/app-version-controller/addConfigsUsingPOST"
+      },
+       {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://google.com"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "contact",
+        "value": "131234"
+      },
+      {
+        "description": "Support Email",
+        "key": "email",
+        "value": "abc@abc.com"
+      },
+      {
+        "description": "Blacklisted URLs",
+        "key": "blacklist",
+        "value": "https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-collector-api"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "blacklist",
+        "value": "https://docs.microsoft.com/en-us/azure/log-analytics/"
+      }
+    ]
+  },
+  {
+    "appName": "Buys",
+    "appVersion": "global",
+    "platformName": "global",
+    "platformVersion": "global",
+    "configs": [
+      {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://localhost:8082/swagger-ui.html#!/app-version-controller/addConfigsUsingPOST"
+      },
+       {
+        "description": "Whitelisted URLs",
+        "key": "whitelist",
+        "value": "http://google.com"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "contact",
+        "value": "123345"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "after-hours-contact",
+        "value": "123346"
+      },
+      {
+        "description": "Support Email",
+        "key": "email",
+        "value": "abc@abc.com"
+      },
+      {
+        "description": "Blacklisted URLs",
+        "key": "blacklist",
+        "value": "https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-collector-api"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "blacklist",
+        "value": "https://docs.microsoft.com/en-us/azure/log-analytics/"
+      }
+    ]
+  }
+]
