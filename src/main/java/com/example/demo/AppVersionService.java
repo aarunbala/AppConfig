@@ -21,6 +21,10 @@ public class AppVersionService {
 	@Autowired
 	private AppVersionKeyRepository keyRepo;
 	
+	public AppVersionService(AppVersionKeyRepository keyRepo) {
+		this.keyRepo = keyRepo;
+	}
+	
 	public AppVersionResponse getConfig(String appName, String appVersion, String platformName, String platformVersion) {
 		AppVersionKey key = keyRepo.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion(appName, appVersion, platformName, platformVersion);
 		AppVersionKey global = keyRepo.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion(appName, GLOBAL, GLOBAL, GLOBAL);
@@ -41,24 +45,28 @@ public class AppVersionService {
 		return Arrays.asList(values);
 	}
 
-	public static Map<String, Object> filterConfig(List<AppVersionConfig> configList) {
+	public Map<String, Object> filterConfig(List<AppVersionConfig> configList) {
 		Map<String, Object> keyMap = new HashMap<>();
-		configList.forEach(config -> doFilter(keyMap,config));
+		if(configList != null) {
+			configList.forEach(config -> doFilter(keyMap,config));
+		}
 		return keyMap;
 	}
 	
-	public static Map<String, Object> filterGlobalConfig(Map<String, Object> keyMap, List<AppVersionConfig> globalConfigList) {
+	public Map<String, Object> filterGlobalConfig(Map<String, Object> keyMap, List<AppVersionConfig> globalConfigList) {
 		Map<String, Object> globalKeyMap = new HashMap<>();
-		
-		globalConfigList.forEach(config -> {
-				if(!keyMap.containsKey(config.getKey())) { 
-					doFilter(globalKeyMap,config); 
-					}
-				});
+		if(globalConfigList != null) {		
+			globalConfigList.forEach(config -> {
+					if(!keyMap.containsKey(config.getKey())) { 
+						doFilter(globalKeyMap,config); 
+						}
+					});
+		}
 		return globalKeyMap;
 	}
 	
-	public static void doFilter(Map<String, Object> keyMap, AppVersionConfig config) {
+	@SuppressWarnings("unchecked")
+	public void doFilter(Map<String, Object> keyMap, AppVersionConfig config) {
 		if(!keyMap.containsKey(config.getKey())) {
 			keyMap.put(config.getKey(), config.getValue());
 		} else {

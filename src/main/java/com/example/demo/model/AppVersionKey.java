@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -64,6 +65,9 @@ public class AppVersionKey {
 		this.platformVersion = platformVersion;
 	}
 	public List<AppVersionConfig> getConfigs() {
+		if(configs == null) {
+			configs = new ArrayList<>();
+		}
 		return configs;
 	}
 	public void setConfigs(List<AppVersionConfig> configs) {

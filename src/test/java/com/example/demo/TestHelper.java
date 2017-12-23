@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,25 +9,25 @@ import java.util.Map;
 import com.example.demo.model.AppVersionConfig;
 import com.example.demo.model.AppVersionKey;
 
-public class TestMain {
+public class TestHelper {
 
-	public static void main(String[] args) {
-		String appName = "App";
-		String appVersion = "1.2";
-		String platformName = "ios";
-		String platformVersion = "11.2";
-		AppVersionResponse response = new AppVersionResponse();
-		AppVersionKey key = getAppVersionKey(appName, appVersion, platformName, platformVersion);
-		AppVersionKey global = getGlobalAppVersionKey(appName);
-		
-		Map<String, Object> keyMap = filterConfig(key.getConfigs());
-		Map<String,Object> globalKeyMap = filterGlobalConfig(keyMap, global.getConfigs());
-		
-		keyMap.putAll(globalKeyMap);
-		
-		response.getConfigs().putAll(keyMap);
-		System.out.println(response);
-	}
+//	public static void main(String[] args) {
+//		String appName = "App";
+//		String appVersion = "1.2";
+//		String platformName = "ios";
+//		String platformVersion = "11.2";
+//		AppVersionResponse response = new AppVersionResponse();
+//		AppVersionKey key = getAppVersionKey(appName, appVersion, platformName, platformVersion);
+//		AppVersionKey global = getGlobalAppVersionKey(appName);
+//		
+//		Map<String, Object> keyMap = filterConfig(key.getConfigs());
+//		Map<String,Object> globalKeyMap = filterGlobalConfig(keyMap, global.getConfigs());
+//		
+//		keyMap.putAll(globalKeyMap);
+//		
+//		response.getConfigs().putAll(keyMap);
+//		System.out.println(response);
+//	}
 	
 	public static Map<String, Object> filterConfig(List<AppVersionConfig> configList) {
 		Map<String, Object> keyMap = new HashMap<>();
@@ -99,5 +100,56 @@ public class TestMain {
 		
 		global.setConfigs(globalConfigs);
 		return global;
+	}
+	
+	public static AppVersionKey getEmptyGlobalAppVersionKey(String appName) {
+		AppVersionKey global = new AppVersionKey(appName, "global", "global", "global");
+		List<AppVersionConfig> globalConfigs = new ArrayList<>();
+		
+		global.setConfigs(globalConfigs);
+		return global;
+	}
+	
+	public static List<String> paramAsList(String ... values) {
+		return Arrays.asList(values);
+	}
+	
+	public static Map<String, Object> getKeyMap() {
+		Map<String, Object> keyMap = new HashMap<>();
+		keyMap.put("whitelist", paramAsList("url1", "url2", "url2"));
+		keyMap.put("contact", paramAsList("1312321","1312321"));
+		keyMap.put("email", "abc@abc.com");
+		return keyMap;
+	}
+	
+	public static Map<String, Object> getGlobalKeyMap() {
+		Map<String, Object> keyMap = new HashMap<>();
+		keyMap.put("blacklist", paramAsList("url22", "url23"));
+		return keyMap;
+	}
+	
+	public static Map<String, Object> getGlobalKeyMapForEmptyKeyMap() {
+		Map<String, Object> keyMap = new HashMap<>();
+		keyMap.put("blacklist", paramAsList("url22", "url23"));
+		keyMap.put("whitelist", "url2");
+		keyMap.put("contact", "1312321");
+		return keyMap;
+	}
+	
+	public static AppVersionResponse getAppVersionResponse() {
+		AppVersionResponse response = new AppVersionResponse();
+		response.getConfigs().put("whitelist", paramAsList("url2", "url1","url2"));
+		response.getConfigs().put("contact", paramAsList("1312321", "1312321"));
+		response.getConfigs().put("email", "abc@abc.com");
+		response.getConfigs().put("blacklist", paramAsList("url22", "url23"));
+		return response;
+	}
+	
+	public static AppVersionResponse getAppVersionResponse_WithNoGlobalConfig() {
+		AppVersionResponse response = new AppVersionResponse();
+		response.getConfigs().put("whitelist", paramAsList("url2", "url1","url2"));
+		response.getConfigs().put("contact", paramAsList("1312321", "1312321"));
+		response.getConfigs().put("email", "abc@abc.com");
+		return response;
 	}
 }

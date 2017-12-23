@@ -25,6 +25,31 @@ public class AppVersionResponse {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((configs == null) ? 0 : configs.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AppVersionResponse other = (AppVersionResponse) obj;
+		if (configs == null) {
+			if (other.configs != null)
+				return false;
+		} else if (!configs.equals(other.configs))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "AppVersionResponse [configs=" + configs + "]";
 	}
