@@ -6,8 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.example.demo.model.AppVersionConfig;
 import com.example.demo.model.AppVersionKey;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TestHelper {
 
@@ -151,5 +156,17 @@ public class TestHelper {
 		response.getConfigs().put("contact", paramAsList("1312321", "1312321"));
 		response.getConfigs().put("email", "abc@abc.com");
 		return response;
+	}
+	
+	public static JSONObject getAppVersionResponseJSON()  {
+		ObjectMapper mapper = new ObjectMapper();
+		JSONObject json = new JSONObject();
+		try {
+			json = new JSONObject(mapper.writeValueAsString(getAppVersionResponse()));
+		} catch (JsonProcessingException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 }

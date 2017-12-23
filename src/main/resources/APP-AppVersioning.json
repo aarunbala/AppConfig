@@ -1,0 +1,54 @@
+{
+    "provider": {
+        "name": "AppVersioning"
+    },
+    "consumer": {
+        "name": "APP"
+    },
+    "interactions": [
+        {
+            "description": "App Name, App Version, Platform Name & Platform Version",
+            "request": {
+                "method": "GET",
+                "path": "/config/App/1.2/ios/11.2"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "configs": {
+                        "contact": [
+                            "1312321",
+                            "1312321"
+                        ],
+                        "blacklist": [
+                            "url22",
+                            "url23"
+                        ],
+                        "whitelist": [
+                            "url2",
+                            "url1",
+                            "url2"
+                        ],
+                        "email": "abc@abc.com"
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "App Versioning Config params are available"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.11"
+        }
+    }
+}
