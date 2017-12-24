@@ -9,19 +9,20 @@ import java.util.Map;
 import org.junit.Test;
 import org.mockito.Mockito;
 import com.example.demo.model.AppVersionKey;
+import com.example.demo.repository.AppVersionConfigRepository;
 import com.example.demo.repository.AppVersionKeyRepository;
 
 public class AppVersionService_UnitTest {
 
-	AppVersionKeyRepository keyRepository;
+	AppVersionConfigRepository configRepository;
 	
 	AppVersionService service;
 	
 	private static final String GLOBAL = "global";
 	
 	public AppVersionService_UnitTest() {
-		keyRepository = Mockito.mock(AppVersionKeyRepository.class);
-		service = new AppVersionService(keyRepository);
+		configRepository = Mockito.mock(AppVersionConfigRepository.class);
+		service = new AppVersionService(configRepository);
 	}
 
 	@Test
@@ -83,10 +84,13 @@ public class AppVersionService_UnitTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetConfig() {
-		when(keyRepository.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion("App", "1.2", "ios", "11.2"))
-			.thenReturn(TestHelper.getAppVersionKey("App", "1.2", "ios", "11.2"));
-		when(keyRepository.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion("App", GLOBAL, GLOBAL, GLOBAL))
-			.thenReturn(TestHelper.getGlobalAppVersionKey("App"));
+		AppVersionKey key = new AppVersionKey("App", "1.2", "ios", "11.2");
+		AppVersionKey globalKey = new AppVersionKey("App", GLOBAL, GLOBAL, GLOBAL);
+		
+		when(configRepository.findByAppVersionKey(key))
+			.thenReturn(TestHelper.getAppVersionKeyConfigs("App", "1.2", "ios", "11.2"));
+		when(configRepository.findByAppVersionKey(globalKey))
+			.thenReturn(TestHelper.getGlobalAppVersionKeyConfigs("App"));
 		AppVersionResponse expectedResponse = TestHelper.getAppVersionResponse();
 		
 		AppVersionResponse response = service.getConfig("App", "1.2", "ios", "11.2");
@@ -100,10 +104,13 @@ public class AppVersionService_UnitTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testgetConfigWithOnlySpecificConfig() {
-		when(keyRepository.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion("App", "1.2", "ios", "11.2"))
-		.thenReturn(TestHelper.getAppVersionKey("App", "1.2", "ios", "11.2"));
-		when(keyRepository.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion("App", GLOBAL, GLOBAL, GLOBAL))
-		.thenReturn(TestHelper.getEmptyGlobalAppVersionKey("App"));
+		AppVersionKey key = new AppVersionKey("App", "1.2", "ios", "11.2");
+		AppVersionKey globalKey = new AppVersionKey("App", GLOBAL, GLOBAL, GLOBAL);
+		
+		when(configRepository.findByAppVersionKey(key))
+			.thenReturn(TestHelper.getAppVersionKeyConfigs("App", "1.2", "ios", "11.2"));
+		when(configRepository.findByAppVersionKey(globalKey))
+			.thenReturn(TestHelper.getEmptyGlobalAppVersionKeyConfig("App"));
 		AppVersionResponse expectedResponse = TestHelper.getAppVersionResponse_WithNoGlobalConfig();
 		
 		AppVersionResponse response = service.getConfig("App", "1.2", "ios", "11.2");

@@ -84,5 +84,53 @@ public class AppVersionKey {
 		return "AppVersionKey [appName=" + appName + ", appVersion=" + appVersion + ", platformName=" + platformName
 				+ ", platformVersion=" + platformVersion + ", configs=" + configs + "]";
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((appName == null) ? 0 : appName.hashCode());
+		result = prime * result + ((appVersion == null) ? 0 : appVersion.hashCode());
+		result = prime * result + ((configs == null) ? 0 : configs.hashCode());
+		result = prime * result + ((platformName == null) ? 0 : platformName.hashCode());
+		result = prime * result + ((platformVersion == null) ? 0 : platformVersion.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AppVersionKey other = (AppVersionKey) obj;
+		if (appName == null) {
+			if (other.appName != null)
+				return false;
+		} else if (!appName.equals(other.appName))
+			return false;
+		if (appVersion == null) {
+			if (other.appVersion != null)
+				return false;
+		} else if (!appVersion.equals(other.appVersion))
+			return false;
+		if (configs == null) {
+			if (other.configs != null)
+				return false;
+		} else if (!configs.equals(other.configs))
+			return false;
+		if (platformName == null) {
+			if (other.platformName != null)
+				return false;
+		} else if (!platformName.equals(other.platformName))
+			return false;
+		if (platformVersion == null) {
+			if (other.platformVersion != null)
+				return false;
+		} else if (!platformVersion.equals(other.platformVersion))
+			return false;
+		return true;
+	}
+	
 	
 }

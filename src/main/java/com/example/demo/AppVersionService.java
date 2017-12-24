@@ -5,12 +5,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.AppVersionConfig;
 import com.example.demo.model.AppVersionKey;
+import com.example.demo.repository.AppVersionConfigRepository;
 import com.example.demo.repository.AppVersionKeyRepository;
 
 @Service
@@ -21,21 +23,34 @@ public class AppVersionService {
 	@Autowired
 	private AppVersionKeyRepository keyRepo;
 	
-	public AppVersionService(AppVersionKeyRepository keyRepo) {
-		this.keyRepo = keyRepo;
+	@Autowired
+	private AppVersionConfigRepository configRepo;
+	
+	public AppVersionService(AppVersionConfigRepository configRepo) {
+		this.configRepo = configRepo;
 	}
 	
 	public AppVersionResponse getConfig(String appName, String appVersion, String platformName, String platformVersion) {
-		AppVersionKey key = keyRepo.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion(appName, appVersion, platformName, platformVersion);
-		AppVersionKey global = keyRepo.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion(appName, GLOBAL, GLOBAL, GLOBAL);
+//		AppVersionKey key = keyRepo.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion(appName, appVersion, platformName, platformVersion);
+//		AppVersionKey global = keyRepo.findByAppNameAndAppVersionAndPlatformNameAndPlatformVersion(appName, GLOBAL, GLOBAL, GLOBAL);
+		
+		long startTime = System.currentTimeMillis();
+		List<AppVersionConfig> configListing = configRepo.findByAppVersionKey(new AppVersionKey(appName, appVersion, platformName, platformVersion));
+		long endTime = System.currentTimeMillis();
+		System.out.println("That took " + (endTime - startTime) + " milliseconds");
+		startTime = System.currentTimeMillis();
+		List<AppVersionConfig> configGlobalListing = configRepo.findByAppVersionKey(new AppVersionKey(appName,  GLOBAL, GLOBAL, GLOBAL));
+		endTime = System.currentTimeMillis();
+		System.out.println("That took " + (endTime - startTime) + " milliseconds");
+		
 		AppVersionResponse response = new AppVersionResponse();
 		Map<String, Object> keyMap = new HashMap<>();
-		if(key != null) {
-			keyMap = filterConfig(key.getConfigs());
+		if(configListing != null) {
+			keyMap = filterConfig(configListing);
 			response.getConfigs().putAll(keyMap);
 		}
-		if(global != null) {
-			Map<String,Object> globalKeyMap = filterGlobalConfig(response.getConfigs(), global.getConfigs());
+		if(configGlobalListing != null) {
+			Map<String,Object> globalKeyMap = filterGlobalConfig(response.getConfigs(), configGlobalListing);
 			response.getConfigs().putAll(globalKeyMap);
 		}
 		return response;

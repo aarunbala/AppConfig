@@ -90,6 +90,10 @@ public class TestHelper {
 		return key;
 	}
 	
+	public static List<AppVersionConfig> getAppVersionKeyConfigs(String appName, String appVersion, String platformName, String platformVersion) {
+		return getAppVersionKey(appName, appVersion, platformName, platformVersion).getConfigs();
+	}
+	
 	public static AppVersionKey getGlobalAppVersionKey(String appName) {
 		AppVersionKey global = new AppVersionKey(appName, "global", "global", "global");
 		global.setId(125);
@@ -105,6 +109,10 @@ public class TestHelper {
 		
 		global.setConfigs(globalConfigs);
 		return global;
+	}
+	
+	public static List<AppVersionConfig> getGlobalAppVersionKeyConfigs(String appName) {
+		return getGlobalAppVersionKey(appName).getConfigs();
 	}
 	
 	public static AppVersionKey getEmptyGlobalAppVersionKey(String appName) {
@@ -168,5 +176,9 @@ public class TestHelper {
 			e.printStackTrace();
 		}
 		return json;
+	}
+
+	public static List<AppVersionConfig> getEmptyGlobalAppVersionKeyConfig(String string) {
+		return new ArrayList<>();
 	}
 }
