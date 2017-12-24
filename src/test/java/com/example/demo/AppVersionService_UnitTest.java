@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import com.example.demo.model.AppVersionKey;
 import com.example.demo.repository.AppVersionConfigRepository;
-import com.example.demo.repository.AppVersionKeyRepository;
 
 public class AppVersionService_UnitTest {
 

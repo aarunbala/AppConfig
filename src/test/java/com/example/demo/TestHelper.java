@@ -16,57 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TestHelper {
 
-//	public static void main(String[] args) {
-//		String appName = "App";
-//		String appVersion = "1.2";
-//		String platformName = "ios";
-//		String platformVersion = "11.2";
-//		AppVersionResponse response = new AppVersionResponse();
-//		AppVersionKey key = getAppVersionKey(appName, appVersion, platformName, platformVersion);
-//		AppVersionKey global = getGlobalAppVersionKey(appName);
-//		
-//		Map<String, Object> keyMap = filterConfig(key.getConfigs());
-//		Map<String,Object> globalKeyMap = filterGlobalConfig(keyMap, global.getConfigs());
-//		
-//		keyMap.putAll(globalKeyMap);
-//		
-//		response.getConfigs().putAll(keyMap);
-//		System.out.println(response);
-//	}
-	
-	public static Map<String, Object> filterConfig(List<AppVersionConfig> configList) {
-		Map<String, Object> keyMap = new HashMap<>();
-		configList.forEach(config -> doFilter(keyMap,config));
-		return keyMap;
-	}
-	
-	public static Map<String, Object> filterGlobalConfig(Map<String, Object> keyMap, List<AppVersionConfig> globalConfigList) {
-		Map<String, Object> globalKeyMap = new HashMap<>();
-		
-		globalConfigList.forEach(config -> {
-				if(!keyMap.containsKey(config.getKey())) { 
-					doFilter(globalKeyMap,config); 
-					}
-				});
-		return globalKeyMap;
-	}
-	
-	public static void doFilter(Map<String, Object> keyMap, AppVersionConfig config) {
-		if(!keyMap.containsKey(config.getKey())) {
-			keyMap.put(config.getKey(), config.getValue());
-		} else {
-			Object value = keyMap.get(config.getKey());
-			List<String> values = new ArrayList<>();
-			if(value instanceof String) {
-				values.add((String)value);
-			} else {
-				values.addAll((List<String>)value);
-			}
-			values.add(config.getValue());
-			keyMap.put(config.getKey(), values);
-		}
-	}
-	
 	public static AppVersionKey getAppVersionKey(String appName, String appVersion, String platformName, String platformVersion) {
 		AppVersionKey key = new AppVersionKey(appName, appVersion, platformName, platformVersion);
 		key.setId(124);
