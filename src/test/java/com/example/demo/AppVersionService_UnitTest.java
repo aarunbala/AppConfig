@@ -3,6 +3,7 @@ package com.example.demo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +87,10 @@ public class AppVersionService_UnitTest {
 		AppVersionKey key = new AppVersionKey("App", "1.2", "ios", "11.2");
 		AppVersionKey globalKey = new AppVersionKey("App", GLOBAL, GLOBAL, GLOBAL);
 		
-		when(configRepository.findByAppVersionKey(key))
+		when(configRepository.
+				findByAppVersionKeyAppNameInAndAppVersionKeyPlatformNameInAndAppVersionKeyAppVersionInAndAppVersionKeyPlatformNameIn(
+						Arrays.asList("App"), Arrays.asList("ios", GLOBAL), Arrays.asList("1.2", GLOBAL),
+						Arrays.asList("11.2", GLOBAL)))
 			.thenReturn(TestHelper.getAppVersionKeyConfigs("App", "1.2", "ios", "11.2"));
 		when(configRepository.findByAppVersionKey(globalKey))
 			.thenReturn(TestHelper.getGlobalAppVersionKeyConfigs("App"));
@@ -103,13 +107,11 @@ public class AppVersionService_UnitTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testgetConfigWithOnlySpecificConfig() {
-		AppVersionKey key = new AppVersionKey("App", "1.2", "ios", "11.2");
-		AppVersionKey globalKey = new AppVersionKey("App", GLOBAL, GLOBAL, GLOBAL);
 		
-		when(configRepository.findByAppVersionKey(key))
-			.thenReturn(TestHelper.getAppVersionKeyConfigs("App", "1.2", "ios", "11.2"));
-		when(configRepository.findByAppVersionKey(globalKey))
-			.thenReturn(TestHelper.getEmptyGlobalAppVersionKeyConfig("App"));
+		when(configRepository.findByAppVersionKeyAppNameInAndAppVersionKeyPlatformNameInAndAppVersionKeyAppVersionInAndAppVersionKeyPlatformNameIn(
+				Arrays.asList("App"), Arrays.asList("ios", GLOBAL), Arrays.asList("1.2", GLOBAL),
+				Arrays.asList("11.2", GLOBAL)))
+			.thenReturn(TestHelper.getAppVersionKeyConfigsWithNoGlobal("App", "1.2", "ios", "11.2"));
 		AppVersionResponse expectedResponse = TestHelper.getAppVersionResponse_WithNoGlobalConfig();
 		
 		AppVersionResponse response = service.getConfig("App", "1.2", "ios", "11.2");

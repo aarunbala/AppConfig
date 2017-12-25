@@ -132,5 +132,34 @@ public class AppVersionKey {
 		return true;
 	}
 	
-	
+	public boolean matches(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AppVersionKey other = (AppVersionKey) obj;
+		if (appName == null) {
+			if (other.appName != null)
+				return false;
+		} else if (!appName.equals(other.appName))
+			return false;
+		if (appVersion == null) {
+			if (other.appVersion != null)
+				return false;
+		} else if (!appVersion.equals(other.appVersion))
+			return false;
+		if (platformName == null) {
+			if (other.platformName != null)
+				return false;
+		} else if (!platformName.equals(other.platformName))
+			return false;
+		if (platformVersion == null) {
+			if (other.platformVersion != null)
+				return false;
+		} else if (!platformVersion.equals(other.platformVersion))
+			return false;
+		return true;
+	}
 }

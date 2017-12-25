@@ -40,7 +40,16 @@ public class TestHelper {
 	}
 	
 	public static List<AppVersionConfig> getAppVersionKeyConfigs(String appName, String appVersion, String platformName, String platformVersion) {
-		return getAppVersionKey(appName, appVersion, platformName, platformVersion).getConfigs();
+		List<AppVersionConfig> configs = new ArrayList<>();
+		configs.addAll(getAppVersionKey(appName, appVersion, platformName, platformVersion).getConfigs());
+		configs.addAll(getGlobalAppVersionKeyConfigs(appName));
+		return configs;
+	}
+	
+	public static List<AppVersionConfig> getAppVersionKeyConfigsWithNoGlobal(String appName, String appVersion, String platformName, String platformVersion) {
+		List<AppVersionConfig> configs = new ArrayList<>();
+		configs.addAll(getAppVersionKey(appName, appVersion, platformName, platformVersion).getConfigs());
+		return configs;
 	}
 	
 	public static AppVersionKey getGlobalAppVersionKey(String appName) {

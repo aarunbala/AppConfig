@@ -1,6 +1,39 @@
 [
   {
     "appName": "App",
+    "appVersion": "global",
+    "platformName": "ios",
+    "platformVersion": "global",
+    "configs": [
+      {
+        "description": "Whitelisted URLs",
+        "key": "whitelisted",
+        "value": "http://localhost:8082/swagger-ui.html#!/app-version-controller/addConfigsUsingPOST"
+      },
+       {
+        "description": "Whitelisted URLs",
+        "key": "whitelisted",
+        "value": "http://google.com"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "contact",
+        "value": "131234"
+      },
+      {
+        "description": "Support Contact Number",
+        "key": "ios-contact",
+        "value": "131234"
+      },
+      {
+        "description": "Support Email",
+        "key": "email",
+        "value": "abc@abc.com"
+      }
+    ]
+  },
+  {
+    "appName": "App",
     "appVersion": "1.2",
     "platformName": "ios",
     "platformVersion": "11.2",
